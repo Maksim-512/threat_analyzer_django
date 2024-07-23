@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+<link rel="stylesheet" href=" {% static 'threat/404.css' %}">
+<title>404 — Страница не найдена</title>
+</head>
+<body>
+<h1>Ошибка 404</h1>
+<p>К сожалению, запрашиваемая вами страница не найдена. Возможно, она была удалена или перемещена.</p>
+<a href = "{% url 'main' %}">
+    <button>Вернуться на главную страницу</button>
+</a>
+</body>
+</html>

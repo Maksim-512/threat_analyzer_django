@@ -1,0 +1,52 @@
+{% extends 'threat/base.html' %}
+{% load static %}
+
+{% block title %}
+    Общая информация
+{% endblock %}
+
+{% block content_css %}
+<link rel="stylesheet" href=" {% static 'threat/info_about_devices.css' %}">
+{% endblock %}
+
+{% block body %}
+<h2>Из вашего сообщения: '{{ input_str }}' были получены следующие устройства: {{ devices|join:", " }}</h2>
+    <ol>
+    {% for field in all_devices %}
+        {% if field.device_variation in devices %}
+            <li>
+                <p class="device-type">
+                    Устройство {{ field.device_variation }} относится к типу устройств '{{ field.device_name.device_name }}', которое входит в класс '{{ field.device_name.device_type }}.'
+                </p>
+                <p class="sp-num">
+                    Этому устройству соответствуют следующие способы реализации угроз:
+                        {% for sp in field.device_name.sp_devices.all %}
+                            {{ sp.sp_number }}{% if not forloop.last %}, {% else %}.{% endif %}
+                        {% endfor %}
+                </p>
+                    {% for sp in field.device_name.sp_devices.all %}
+                        <div class="threat-container">
+                        <span>{{ sp.sp_number }} соответствует следующие возможные реализуемые угрозы:
+                            {% for ubi in sp.sp_number.ubis.all %}
+                                {{ ubi.possible_threats.possible_threats }}{% if not forloop.last %}, {% else %}.{% endif %}
+                            {% endfor %}</span>
+                            <div class="button-container">
+                            <a href = "{% url 'info_ubi' sp.sp_number.sp_number %}">
+                                <button>Описание УБИ для {{sp.sp_number}}</button>
+                            </a>
+                            <a href = "{% url 'info_protect' sp.sp_number.sp_number %}">
+                                <button>Меры защиты и их описание для {{sp.sp_number}}</button>
+                            </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+            </li>
+        {% endif %}
+    {% endfor %}
+    </ol>
+
+<a href = "{% url 'main' %}">
+    <button>Вернуться на главную страницу</button>
+</a>
+
+{% endblock %}

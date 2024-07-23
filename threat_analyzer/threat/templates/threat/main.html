@@ -1,0 +1,36 @@
+{% extends 'threat/base.html' %}
+{% load static %}
+
+{% block title %}
+    Меню
+{% endblock %}
+
+{% block content_css %}
+<link rel="stylesheet" href=" {% static 'threat/main.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="full-page">
+    <h1>Введите свою аппаратуру или комплекс аппаратур</h1>
+    <form method="POST" class="search-form">
+        {% csrf_token %}
+        <div class="search-box">
+            {% for field in form %}
+                <div class="form-field">
+                    {{ field }}
+                </div>
+            {% endfor %}
+            <button class="search-btn">Отправить</button>
+        </div>
+    </form>
+
+    <br><br><br><br>
+
+    <div class="bottom-buttons">
+        <h2>Сомневаешься, есть ли твои устройства в нашей базе?<br>Нажимай на кнопку ниже:</h2>
+        <a href = "{% url 'all_devices_variations' %}">
+            <button class="list-btn">Посмотреть список возможных устройств</button>
+        </a>
+    </div>
+</div>
+{% endblock %}

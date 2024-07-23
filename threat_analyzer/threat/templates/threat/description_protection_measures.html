@@ -1,0 +1,23 @@
+{% extends 'threat/base.html' %}
+{% load static %}
+
+{% block title %}
+    Описание УБИ для СП
+{% endblock %}
+
+{% block content_css %}
+<link rel="stylesheet" href=" {% static 'threat/description_protection_measures.css' %}">
+{% endblock %}
+
+
+{% block body %}
+    <h2>Описание УБИ для СП</h2>
+    <ul>
+        {% for protect in protection.protections.all %}
+            <li><p class="protection-method">{{ protect.protection_method }}</p>{{ protect.protection_realize }}</li>
+        {%endfor%}
+    </ul>
+    <a href = "{% url 'info_devices' %}">
+        <button>Вернуться</button>
+    </a>
+{% endblock %}

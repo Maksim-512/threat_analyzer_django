@@ -1,0 +1,23 @@
+{% extends 'threat/base.html' %}
+{% load static %}
+
+{% block title %}
+    Список возможных устройств
+{% endblock %}
+
+{% block content_css %}
+<link rel="stylesheet" href=" {% static 'threat/all_devices_variations.css' %}">
+{% endblock %}
+
+{% block body %}
+  <h2>Список возможных устройств</h2>
+  <ol>
+    {% for device in all_devices_variations %}
+      <li>{{ device.device_variation }}</li>
+    {% endfor %}
+  </ol>
+
+  <a href = "{% url 'main' %}">
+    <button>Вернуться на главную страницу</button>
+  </a>
+{% endblock %}

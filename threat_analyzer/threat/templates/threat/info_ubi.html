@@ -1,0 +1,22 @@
+{% extends 'threat/base.html' %}
+{% load static %}
+
+{% block title %}
+    Описание УБИ для СП
+{% endblock %}
+
+{% block content_css %}
+<link rel="stylesheet" href=" {% static 'threat/info_ubi.css' %}">
+{% endblock %}
+
+{% block body %}
+    <h2>Описание УБИ для СП</h2>
+    <ul>
+        {% for ubi in sp.ubis.all %}
+        <li><p class="ubi-num">{{ ubi.possible_threats.possible_threats }}</p>{{ ubi.possible_threats.threat_description }}</li>
+        {%endfor%}
+    </ul>
+    <a href = "{% url 'info_devices' %}">
+        <button>Вернуться</button>
+    </a>
+{% endblock %}
